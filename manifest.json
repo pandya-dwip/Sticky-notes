@@ -1,0 +1,32 @@
+{
+    "manifest_version": 3,
+    "name": "StickyNote",
+    "version": "1.0",
+    "description": "A premium, secure, tab-based note-taking extension featuring glassmorphism UI, advanced theme customization, list mode, quick data generators, and keyboard shortcuts.",
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "32": "icons/icon32.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        }
+    },
+    "side_panel": {
+        "default_path": "popup.html?mode=sidepanel"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "storage",
+        "sidePanel",
+        "windows"
+    ],
+    "host_permissions": [
+        "https://randomuser.me/*"
+    ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'none';"
+    }
+}

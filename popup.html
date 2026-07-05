@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>StickyNote</title>
+    <script src="init.js"></script>
+</head>
+
+<body class="light">
+    <!-- Ambient Background Effects -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="glass-container">
+        <!-- 🎯 Header with Smart Tabs -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="app-logo">
+                    <span class="material-symbols-rounded">edit_note</span>
+                    <span class="logo-text">StickyNote</span>
+                </div>
+            </div>
+
+            <div id="tabs-container" class="tabs-wrapper">
+                <!-- Tabs injected via JS -->
+            </div>
+
+            <div class="header-actions">
+                <button id="addTabBtn" class="icon-btn icon-btn-primary" title="New Tab">
+                    <span class="material-symbols-rounded">add</span>
+                </button>
+                <button id="renameTabBtn" class="icon-btn" title="Rename Tab (Ctrl+R)">
+                    <span class="material-symbols-rounded">edit</span>
+                </button>
+                <button id="deleteTabBtn" class="icon-btn" title="Delete Tab (Del)">
+                    <span class="material-symbols-rounded">delete</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 🧰 Modern Toolbar -->
+        <nav class="app-toolbar">
+            <div class="toolbar-section">
+                <span class="section-label">Actions</span>
+                <div class="toolbar-group">
+                    <button id="copyBtn" class="tool-btn" title="Copy Note">
+                        <span class="material-symbols-rounded">content_copy</span>
+                        <span class="btn-label">Copy</span>
+                    </button>
+                    <button id="clearTab" class="tool-btn" title="Clear Note">
+                        <span class="material-symbols-rounded">delete_sweep</span>
+                        <span class="btn-label">Clear</span>
+                    </button>
+                    <button id="exportBtn" class="tool-btn" title="Export">
+                        <span class="material-symbols-rounded">download</span>
+                        <span class="btn-label">Export</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="toolbar-divider"></div>
+
+            <div class="toolbar-section">
+                <span class="section-label">Features</span>
+                <div class="toolbar-group">
+                    <button id="listModeBtn" class="tool-btn" title="List Mode (Ctrl+L)">
+                        <span class="material-symbols-rounded">format_list_bulleted</span>
+                        <span class="btn-label">Lists</span>
+                    </button>
+                    <button id="wordCountBtn" class="tool-btn" title="Word Count">
+                        <span class="material-symbols-rounded">text_fields</span>
+                        <span class="btn-label">Stats</span>
+                    </button>
+                    <button id="themeToggleBtn" class="tool-btn" title="Theme (Ctrl+Y)">
+                        <span class="material-symbols-rounded">palette</span>
+                        <span class="btn-label">Theme</span>
+                    </button>
+                    <button id="settingsBtn" class="tool-btn" title="Settings">
+                        <span class="material-symbols-rounded">settings</span>
+                        <span class="btn-label">Settings</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="toolbar-divider"></div>
+
+            <div class="toolbar-section">
+                <span class="section-label">Quick Data (Ctrl+Shift+D)</span>
+                <div class="toolbar-group faker-group ">
+                    <button class="faker-btn" data-type="name" title="Random Name">
+                        <span class="material-symbols-rounded">person</span>
+                    </button>
+                    <button class="faker-btn" data-type="email" title="Random Email">
+                        <span class="material-symbols-rounded">mail</span>
+                    </button>
+                    <button class="faker-btn" data-type="phone" title="Random Phone">
+                        <span class="material-symbols-rounded">call</span>
+                    </button>
+                    <button class="faker-btn" data-type="address" title="Random Address">
+                        <span class="material-symbols-rounded">location_on</span>
+                    </button>
+                    <button class="faker-btn" data-type="date" title="Random Date">
+                        <span class="material-symbols-rounded">calendar_today</span>
+                    </button>
+                    <button class="faker-btn" data-type="card" title="Card Number">
+                        <span class="material-symbols-rounded">credit_card</span>
+                    </button>
+                    <button class="faker-btn" data-type="password" title="Password">
+                        <span class="material-symbols-rounded">key</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Theme Menu Popover -->
+            <div id="themeMenu" class="theme-popover" style="display: none;">
+                <div class="popover-header">Choose Theme</div>
+                <div class="theme-grid">
+                    <button data-theme="light">
+                        <span class="material-symbols-rounded">light_mode</span>
+                        <span>Light</span>
+                    </button>
+                    <button data-theme="dark">
+                        <span class="material-symbols-rounded">dark_mode</span>
+                        <span>Dark</span>
+                    </button>
+                    <button data-theme="random">
+                        <span class="material-symbols-rounded">casino</span>
+                        <span>Random</span>
+                    </button>
+                    <button data-theme="custom">
+                        <span class="material-symbols-rounded">settings_suggest</span>
+                        <span>Custom</span>
+                    </button>
+                </div>
+
+                <!-- Custom Theme Options (Hidden by default) -->
+                <div id="customOptions" class="custom-options" style="display: none;">
+                    <div class="popover-divider"></div>
+                    <div class="option-group">
+                        <label class="option-label">Background Style</label>
+                        <div class="toggle-group">
+                            <button id="bgClassic" class="toggle-btn active">Classic</button>
+                            <button id="bgGradient" class="toggle-btn">Gradient</button>
+                        </div>
+                    </div>
+                    <div id="gradientSelection" class="option-group" style="display: none;">
+                        <label class="option-label">Choose Gradient</label>
+                        <div class="gradient-grid">
+                            <div class="grad-item" data-grad="linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%)"
+                                style="background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%)"></div>
+                            <div class="grad-item" data-grad="linear-gradient(135deg, #A8E6CF 0%, #DCEDC1 100%)"
+                                style="background: linear-gradient(135deg, #A8E6CF 0%, #DCEDC1 100%)"></div>
+                            <div class="grad-item" data-grad="linear-gradient(135deg, #FFD93D 0%, #FF6B6B 100%)"
+                                style="background: linear-gradient(135deg, #FFD93D 0%, #FF6B6B 100%)"></div>
+                            <div class="grad-item" data-grad="linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%)"
+                                style="background: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%)"></div>
+                            <div class="grad-item" data-grad="linear-gradient(135deg, #FDCB6E 0%, #E17055 100%)"
+                                style="background: linear-gradient(135deg, #FDCB6E 0%, #E17055 100%)"></div>
+                            <div class="grad-item" data-grad="linear-gradient(135deg, #00B894 0%, #55E6C1 100%)"
+                                style="background: linear-gradient(135deg, #00B894 0%, #55E6C1 100%)"></div>
+                            <!-- Dark Gradients -->
+                            <div class="grad-item" data-grad="linear-gradient(135deg, #2c3e50 0%, #000000 100%)"
+                                style="background: linear-gradient(135deg, #2c3e50 0%, #000000 100%)"></div>
+                            <div class="grad-item" data-grad="linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)"
+                                style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)"></div>
+                            <div class="grad-item" data-grad="linear-gradient(135deg, #240b36 0%, #c31432 100%)"
+                                style="background: linear-gradient(135deg, #240b36 0%, #c39a14 100%)"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Word Count Popover -->
+            <div id="wordCountPopover" class="stats-popover" style="display: none;">
+                <div class="popover-header">Document Statistics</div>
+                <div class="stat-row">
+                    <span class="stat-label">Characters:</span>
+                    <span id="charCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Words:</span>
+                    <span id="wordCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Lines:</span>
+                    <span id="lineCount" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <!-- Settings Popover -->
+            <div id="settingsPopover" class="settings-popover" style="display: none;">
+                <div class="popover-header">Settings</div>
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <span class="material-symbols-rounded setting-icon">side_navigation</span>
+                        <div class="setting-text">
+                            <span class="setting-label">Open in Side Panel</span>
+                            <span class="setting-desc">Use browser side panel instead of popup</span>
+                        </div>
+                    </div>
+                    <label class="switch" id="sidePanelSwitch">
+                        <input type="checkbox" id="sidePanelToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 📝 Main Editor -->
+        <main class="editor-area">
+            <div class="editor-header">
+                <input type="text" id="noteTitle" class="note-title" placeholder="StickyNote Title" />
+                <div class="editor-meta">
+                    <span id="lastEdited" class="meta-text">Just now</span>
+                </div>
+            </div>
+            <textarea id="noteInput" placeholder="Start writing your thoughts..." maxlength="100000"></textarea>
+        </main>
+
+        <!-- 📊 Enhanced Status Bar -->
+        <footer class="status-bar">
+            <div class="status-left">
+                <div class="status-indicator">
+                    <span class="material-symbols-rounded status-icon">cloud_done</span>
+                    <span id="saveStatus">All changes saved</span>
+                </div>
+            </div>
+            <div class="status-right">
+                <span id="listModeIndicator" class="badge" style="display: none;">
+                    <span class="material-symbols-rounded">check_circle</span>
+                    List Mode
+                </span>
+                <span id="themeIndicator" class="badge">Light</span>
+                <span id="tabCounter" class="badge">
+                    <span class="material-symbols-rounded">tab</span>
+                    1/1
+                </span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
