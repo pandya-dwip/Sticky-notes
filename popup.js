@@ -37,7 +37,7 @@ if (typeof chrome === "undefined" || !chrome.storage || !chrome.storage.local) {
     },
     sidePanel: {
       open: async () => { console.log("Mock sidePanel.open"); },
-      setPanelBehavior: async () => {}
+      setPanelBehavior: async () => { }
     }
   };
 }
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sidebarAddNoteBtn = document.getElementById("sidebar-add-note-btn");
   const notesListContainer = document.getElementById("notes-list-container");
   const sidebarListTitle = document.getElementById("sidebar-list-title");
-  
+
   // Section buttons & Badges
   const secAll = document.getElementById("sec-all");
   const secFavorites = document.getElementById("sec-favorites");
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const editorMenuTrigger = document.getElementById("editor-menu-trigger");
   const editorMenuDropdown = document.getElementById("editor-menu-dropdown");
   const editorBackToLauncher = document.getElementById("editor-back-to-launcher");
-  
+
   // Menu items
   const menuItemDuplicate = document.getElementById("menu-item-duplicate");
   const menuItemTemplate = document.getElementById("menu-item-template");
@@ -194,20 +194,20 @@ document.addEventListener("DOMContentLoaded", () => {
       uuid: { title: "UUID v4", desc: "Universally unique identifier", run: () => generateUUID() }
     },
     developer: {
-      ip: { title: "IPv4 Address", desc: "Random local or public IP", run: () => `${rand(1,254)}.${rand(0,255)}.${rand(0,255)}.${rand(1,254)}` },
-      mac: { title: "MAC Address", desc: "Standard hex physical code", run: () => Array.from({length: 6}, () => rand(0, 255).toString(16).padStart(2, '0')).join(':').toUpperCase() },
-      color: { title: "Hex Color", desc: "Random hex color string", run: () => `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}` },
+      ip: { title: "IPv4 Address", desc: "Random local or public IP", run: () => `${rand(1, 254)}.${rand(0, 255)}.${rand(0, 255)}.${rand(1, 254)}` },
+      mac: { title: "MAC Address", desc: "Standard hex physical code", run: () => Array.from({ length: 6 }, () => rand(0, 255).toString(16).padStart(2, '0')).join(':').toUpperCase() },
+      color: { title: "Hex Color", desc: "Random hex color string", run: () => `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}` },
       useragent: { title: "User Agent", desc: "Mock Chrome user agent", run: () => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" }
     },
     finance: {
       card: { title: "Credit Card", desc: "Luhn-valid visa card format", run: () => generateCreditCard() },
-      iban: { title: "IBAN Code", desc: "International bank number", run: () => "GB" + rand(10,99) + "BARC" + rand(100000,999999) + rand(10000000,99999999) },
-      amount: { title: "Currency Amount", desc: "Value: $10.00 to $9,999.00", run: () => `$${rand(10,9999)}.${rand(10,99).toString().padStart(2,'0')}` },
+      iban: { title: "IBAN Code", desc: "International bank number", run: () => "GB" + rand(10, 99) + "BARC" + rand(100000, 999999) + rand(10000000, 99999999) },
+      amount: { title: "Currency Amount", desc: "Value: $10.00 to $9,999.00", run: () => `$${rand(10, 9999)}.${rand(10, 99).toString().padStart(2, '0')}` },
       bitcoin: { title: "BTC Wallet Address", desc: "Mock crypto token code", run: () => "1" + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) }
     },
     security: {
       password: { title: "Strong Password", desc: "16-char mixed alphanumeric", run: () => generatePassword(16) },
-      hash: { title: "SHA-256 Hash", desc: "Mock cryptographic key", run: () => Array.from({length: 64}, () => rand(0, 15).toString(16)).join('') },
+      hash: { title: "SHA-256 Hash", desc: "Mock cryptographic key", run: () => Array.from({ length: 64 }, () => rand(0, 15).toString(16)).join('') },
       apiKey: { title: "API Token", desc: "Standard app developer token", run: () => "sk_live_" + generatePassword(32) }
     },
     address: {
@@ -217,8 +217,8 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     internet: {
       url: { title: "Website Domain", desc: "Mock landing page URL", run: () => `https://www.${generateRandomCompany().toLowerCase().replace(/[^a-z0-9]/g, '')}.com` },
-      username: { title: "Username", desc: "Social handles style", run: () => generateRandomName().toLowerCase().replace(' ', '_') + rand(10,99) },
-      hashtag: { title: "Hashtag", desc: "Trending social hash tag", run: () => "#" + ["productivity", "notetaking", "workspace", "minimalism", "design", "coding", "focus"][rand(0,6)] }
+      username: { title: "Username", desc: "Social handles style", run: () => generateRandomName().toLowerCase().replace(' ', '_') + rand(10, 99) },
+      hashtag: { title: "Hashtag", desc: "Trending social hash tag", run: () => "#" + ["productivity", "notetaking", "workspace", "minimalism", "design", "coding", "focus"][rand(0, 6)] }
     }
   };
 
@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
         settings = { ...settings, ...res.editorSettings };
       }
       randomGradient = res.randomGradient || "";
-      
+
       // Load and migrate tabs to notes
       const rawTabs = Array.isArray(res.tabs) ? res.tabs : [];
       notes = rawTabs
@@ -633,7 +633,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadActiveNote();
     saveData();
     showToast("New note created");
-    
+
     noteTextarea.focus();
   }
 
@@ -688,7 +688,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!activeNote) return;
 
     const raw = activeNote.content || "*No content to preview*";
-    
+
     // Complex regex-based Markdown parsing to retain speed and offline compliance
     let html = raw
       // Escape HTML entities to prevent CSS/DOM injections
@@ -730,7 +730,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/\n\n/g, '<br/>');
 
     notePreview.innerHTML = html;
-    
+
     // Bind click events on checkbox nodes for Markdown sync updates
     notePreview.querySelectorAll(".markdown-checkbox").forEach(box => {
       box.addEventListener("click", (e) => {
@@ -761,7 +761,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     activeNote.content = content;
     activeNote.modified = Date.now();
-    
+
     // Re-render and save
     noteTextarea.value = content;
     renderMarkdownPreview();
@@ -788,7 +788,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Get selection bounds coordinates
     const rect = noteTextarea.getBoundingClientRect();
     const toolbarHeight = 42;
-    
+
     // Crude character count coordinate approximation
     const textLines = noteTextarea.value.substring(0, start).split("\n");
     const lineCount = textLines.length;
@@ -865,7 +865,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     floatingToolbar.classList.remove("visible");
     noteTextarea.focus();
-    
+
     // Trigger Save
     const activeNote = notes.find(n => n.id === activeNoteId);
     if (activeNote) {
@@ -964,8 +964,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const allOptions = [...actions, ...notesOpts, ...themesOpts];
 
     // Filter
-    paletteFilteredOptions = allOptions.filter(o => 
-      o.title.toLowerCase().includes(query) || 
+    paletteFilteredOptions = allOptions.filter(o =>
+      o.title.toLowerCase().includes(query) ||
       o.desc.toLowerCase().includes(query)
     );
 
@@ -1040,7 +1040,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function executePaletteOption(opt) {
     closeCommandPalette();
-    
+
     if (opt.type === "note") {
       if (!sidePanelMode) {
         showWorkspaceView(opt.id);
@@ -1157,7 +1157,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pinLabel.parentElement.style.display = "flex";
       favLabel.parentElement.style.display = "flex";
       archiveLabel.parentElement.style.display = "flex";
-      
+
       pinLabel.textContent = note.pinned ? "Unpin Note" : "Pin Note";
       favLabel.textContent = note.favorite ? "Unfavorite" : "Favorite";
       archiveLabel.textContent = note.archived ? "Unarchive" : "Archive Note";
@@ -1255,7 +1255,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function loadFakerCategory(category) {
     // Hide all grids
     document.querySelectorAll(".faker-cards-grid").forEach(g => g.classList.remove("active"));
-    
+
     const activeGrid = document.getElementById(`faker-grid-${category}`);
     activeGrid.innerHTML = "";
     activeGrid.classList.add("active");
@@ -1317,7 +1317,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
     fakerLogsList.innerHTML = logItem + list;
-    
+
     // Save to storage
     chrome.storage.local.get(["fakerHistory"], (res) => {
       let history = Array.isArray(res.fakerHistory) ? res.fakerHistory : [];
@@ -1343,7 +1343,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const start = noteTextarea.selectionStart;
     const end = noteTextarea.selectionEnd;
     const val = noteTextarea.value;
-    
+
     noteTextarea.value = val.slice(0, start) + text + val.slice(end);
     noteTextarea.selectionStart = noteTextarea.selectionEnd = start + text.length;
     noteTextarea.focus();
@@ -1363,86 +1363,86 @@ document.addEventListener("DOMContentLoaded", () => {
       showToast("Please select a note first");
       return;
     }
-    
+
     // Core details aligned consistently
     const name = generateRandomName();
     const emailName = name.toLowerCase().replace(/[^a-z0-9]/g, '.');
     const email = `${emailName}${rand(10, 999)}@` + ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com"][rand(0, 4)];
     const username = emailName.replace('.', '_') + rand(10, 99);
-    
+
     const company = generateRandomCompany();
     const companyDomain = company.toLowerCase().replace(/[^a-z0-9]/g, '');
     const companyUrl = `https://www.${companyDomain}.com`;
     const personalUrl = `https://www.${emailName.replace('.', '')}.me`;
-    
+
     const phone = generateRandomPhone();
     const avatar = `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 1000000)}?w=150&h=150&fit=crop`;
-    
+
     const job = generateRandomJob();
     const bs = generateRandomBS();
     const uuid = generateUUID();
-    
-    const ip = `${rand(1,254)}.${rand(0,255)}.${rand(0,255)}.${rand(1,254)}`;
-    const mac = Array.from({length: 6}, () => rand(0, 255).toString(16).padStart(2, '0')).join(':').toUpperCase();
-    const color = `#${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}`;
+
+    const ip = `${rand(1, 254)}.${rand(0, 255)}.${rand(0, 255)}.${rand(1, 254)}`;
+    const mac = Array.from({ length: 6 }, () => rand(0, 255).toString(16).padStart(2, '0')).join(':').toUpperCase();
+    const color = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
     const useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
-    
+
     const card = generateCreditCard();
-    const iban = "GB" + rand(10,99) + "BARC" + rand(100000,999999) + rand(10000000,99999999);
-    const amount = `$${rand(10,9999)}.${rand(10,99).toString().padStart(2,'0')}`;
+    const iban = "GB" + rand(10, 99) + "BARC" + rand(100000, 999999) + rand(10000000, 99999999);
+    const amount = `$${rand(10, 9999)}.${rand(10, 99).toString().padStart(2, '0')}`;
     const bitcoin = "1" + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    
+
     const password = generatePassword(16);
-    const hash = Array.from({length: 64}, () => rand(0, 15).toString(16)).join('');
+    const hash = Array.from({ length: 64 }, () => rand(0, 15).toString(16)).join('');
     const apiKey = "sk_live_" + generatePassword(32);
-    
+
     const street = generateRandomAddress();
     const city = generateRandomCity();
     const country = ["United States", "United Kingdom", "Canada", "Germany", "France", "Japan", "Australia", "India"][rand(0, 7)];
-    
-    const hashtag = "#" + ["productivity", "notetaking", "workspace", "minimalism", "design", "coding", "focus"][rand(0,6)];
 
-    const fakeData = `### 👤 Mock Identity Profile
+    const hashtag = "#" + ["productivity", "notetaking", "workspace", "minimalism", "design", "coding", "focus"][rand(0, 6)];
 
-#### 🎯 Personal Details
-- **Full Name:** ${name}
-- **Email Address:** ${email}
-- **Phone Number:** ${phone}
-- **Avatar URL:** ${avatar}
+    const fakeData = `Mock Identity Profile
 
-#### 💼 Business & Company
-- **Company Name:** ${company}
-- **Job Title:** ${job}
-- **Website URL:** ${companyUrl}
-- **Buzzword Phrase:** ${bs}
-- **UUID v4:** ${uuid}
+Personal Details
+Full Name: ${name}
+Email Address: ${email}
+Phone Number: ${phone}
+Avatar URL: ${avatar}
 
-#### 🛠️ Developer Metadata
-- **IPv4 Address:** ${ip}
-- **MAC Address:** ${mac}
-- **Hex Color Code:** ${color}
-- **User Agent:** ${useragent}
+Business & Company
+Company Name: ${company}
+Job Title: ${job}
+Website URL: ${companyUrl}
+Buzzword Phrase: ${bs}
+UUID v4: ${uuid}
 
-#### 💳 Finance Details
-- **Credit Card:** ${card}
-- **IBAN Code:** ${iban}
-- **Currency Amount:** ${amount}
-- **BTC Wallet Address:** ${bitcoin}
+Developer Metadata
+IPv4 Address: ${ip}
+MAC Address: ${mac}
+Hex Color Code: ${color}
+User Agent: ${useragent}
 
-#### 🔑 Security Credentials
-- **Strong Password:** ${password}
-- **SHA-256 Hash:** ${hash}
-- **API Token Key:** ${apiKey}
+Finance Details
+Credit Card: ${card}
+IBAN Code: ${iban}
+Currency Amount: ${amount}
+BTC Wallet Address: ${bitcoin}
 
-#### 📍 Location Address
-- **Street Address:** ${street}
-- **City & Zip:** ${city}
-- **Country:** ${country}
+Security Credentials
+Strong Password: ${password}
+SHA-256 Hash: ${hash}
+API Token Key: ${apiKey}
 
-#### 🌐 Internet Profiles
-- **Personal Website:** ${personalUrl}
-- **Username Handle:** @${username}
-- **Trending Hashtag:** ${hashtag}`;
+Location Address
+Street Address: ${street}
+City & Zip: ${city}
+Country: ${country}
+
+Internet Profiles
+Personal Website: ${personalUrl}
+Username Handle: @${username}
+Trending Hashtag: ${hashtag}`;
 
     insertTextAtCursor(fakeData);
     showToast("Inserted Full Mock Identity Profile");
@@ -1453,7 +1453,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   function generateUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
@@ -1461,27 +1461,27 @@ document.addEventListener("DOMContentLoaded", () => {
   function generateRandomName() {
     const firsts = ["James", "Mary", "John", "Patricia", "Robert", "Jennifer", "Michael", "Linda", "William", "Elizabeth", "David", "Barbara", "Richard", "Susan", "Joseph", "Jessica", "Thomas", "Sarah", "Charles", "Karen"];
     const lasts = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Wilson", "Anderson", "Taylor", "Thomas", "Moore", "Martin", "Jackson", "Thompson", "White", "Harris", "Sanchez", "Clark", "Ramirez"];
-    return `${firsts[rand(0, firsts.length-1)]} ${lasts[rand(0, lasts.length-1)]}`;
+    return `${firsts[rand(0, firsts.length - 1)]} ${lasts[rand(0, lasts.length - 1)]}`;
   }
   function generateRandomEmail() {
-    return generateRandomName().toLowerCase().replace(' ', '.') + rand(10,999) + "@" + ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com"][rand(0,4)];
+    return generateRandomName().toLowerCase().replace(' ', '.') + rand(10, 999) + "@" + ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com"][rand(0, 4)];
   }
   function generateRandomPhone() {
-    return `(${rand(200,999)}) ${rand(200,999)}-${rand(1000,9999)}`;
+    return `(${rand(200, 999)}) ${rand(200, 999)}-${rand(1000, 9999)}`;
   }
   function generateRandomCompany() {
     const prefixes = ["Acme", "Globex", "Initech", "Umbrella", "Cyberdyne", "Soylent", "Hooli", "Veer", "Apex", "Nova"];
     const suffixes = ["Corp", "Inc", "Technologies", "Solutions", "Industries", "Global", "Systems", "Partners"];
-    return `${prefixes[rand(0, prefixes.length-1)]} ${suffixes[rand(0, suffixes.length-1)]}`;
+    return `${prefixes[rand(0, prefixes.length - 1)]} ${suffixes[rand(0, suffixes.length - 1)]}`;
   }
   function generateRandomJob() {
     const levels = ["Junior", "Senior", "Lead", "Principal", "Chief", "VP of"];
     const fields = ["Software Engineer", "Product Designer", "Data Scientist", "Marketing Executive", "Product Manager", "HR Specialist", "Operations Manager"];
-    return `${levels[rand(0, levels.length-1)]} ${fields[rand(0, fields.length-1)]}`;
+    return `${levels[rand(0, levels.length - 1)]} ${fields[rand(0, fields.length - 1)]}`;
   }
   function generateRandomBS() {
     const list = ["synergize out-of-the-box paradigms", "scale disruptive convergence", "leverage mission-critical deliverables", "optimize value-added schemas", "transition seamless infrastructures", "deploy next-generation mindshare"];
-    return list[rand(0, list.length-1)];
+    return list[rand(0, list.length - 1)];
   }
   function generateCreditCard() {
     let visa = "4";
@@ -1490,15 +1490,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function generatePassword(len) {
     const pool = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-    return Array.from({length: len}, () => pool[rand(0, pool.length-1)]).join("");
+    return Array.from({ length: len }, () => pool[rand(0, pool.length - 1)]).join("");
   }
   function generateRandomAddress() {
     const roads = ["Main St", "Oak Ave", "Pine Rd", "Maple Dr", "Cedar Ln", "Washington Blvd", "Broadway", "Park Lane", "Sunset Blvd"];
-    return `${rand(100, 9999)} ${roads[rand(0, roads.length-1)]}`;
+    return `${rand(100, 9999)} ${roads[rand(0, roads.length - 1)]}`;
   }
   function generateRandomCity() {
     const cities = ["New York, NY", "Los Angeles, CA", "Chicago, IL", "Houston, TX", "Phoenix, AZ", "Philadelphia, PA", "San Antonio, TX", "San Diego, CA", "Seattle, WA"];
-    return `${cities[rand(0, cities.length-1)]} ${rand(10000, 99999)}`;
+    return `${cities[rand(0, cities.length - 1)]} ${rand(10000, 99999)}`;
   }
 
   // ==========================================================================
@@ -1529,7 +1529,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const activeBtn = settingsTabs.querySelector(`[data-tab="${tabId}"]`);
     const activePane = document.getElementById(`pane-${tabId}`);
-    
+
     if (activeBtn && activePane) {
       activeBtn.classList.add("active");
       activePane.classList.add("active");
@@ -1557,7 +1557,7 @@ document.addEventListener("DOMContentLoaded", () => {
       card.addEventListener("click", () => {
         themesGrid.querySelectorAll(".setting-theme-preview-card").forEach(c => c.classList.remove("active"));
         card.classList.add("active");
-        
+
         if (t.id === "theme-random" && settings.theme === "theme-random") {
           randomGradient = generateRandomGradient();
           applyTheme("theme-random");
@@ -1580,7 +1580,7 @@ document.addEventListener("DOMContentLoaded", () => {
     saveSettings();
     enableSidePanelBehavior(settings.sidePanelEnabled);
     showToast(settings.sidePanelEnabled ? "Workspace (Side Panel) mode enabled" : "Popup Launcher mode restored");
-    
+
     if (!settings.sidePanelEnabled) {
       if (sidePanelMode) {
         setTimeout(() => window.close(), 200);
@@ -1724,7 +1724,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Strip all current themes
     themesList.forEach(t => body.classList.remove(t.id));
     body.classList.add(themeId);
-    
+
     if (themeId === "theme-random") {
       if (!randomGradient) {
         randomGradient = generateRandomGradient();
@@ -1734,7 +1734,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       body.style.removeProperty("--random-gradient");
     }
-    
+
     // Set badge text
     const cleanName = themesList.find(t => t.id === themeId)?.name || "Dark";
     if (themeBadge) {
@@ -1781,7 +1781,7 @@ document.addEventListener("DOMContentLoaded", () => {
     saveStatusText.textContent = "Saving...";
     saveStatusIcon.className = "lucide lucide-check sync-icon-spin";
     saveStatusIcon.innerHTML = window.lucide.get("sync");
-    
+
     if (autosaveTimeout) clearTimeout(autosaveTimeout);
 
     autosaveTimeout = setTimeout(() => {
@@ -1911,7 +1911,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       clipboardPreviewText.textContent = "Click to paste from clipboard";
       clipboardInsertBtn.style.display = "none";
-      
+
       // Fallback click listener
       document.querySelector(".launcher-clipboard-card").addEventListener("click", async () => {
         try {
@@ -1933,7 +1933,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderLauncherRecentNotes() {
     launcherNotesList.innerHTML = "";
-    
+
     // Grab top 3 recent non-trashed notes
     const recent = notes.filter(n => !n.trash).slice(0, 3);
     if (recent.length === 0) {
@@ -1998,7 +1998,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function showToast(message, allowUndo = false) {
     const toast = document.createElement("div");
     toast.className = "toast-msg";
-    
+
     const textSpan = document.createElement("span");
     textSpan.textContent = message;
     toast.appendChild(textSpan);
@@ -2108,11 +2108,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (activeNote) {
       activeNote.title = noteTitleInput.value.trim() || "Untitled Note";
       activeNote.modified = Date.now();
-      
+
       // Update sidebar immediately
       const cardTitle = document.querySelector(`.note-item-card[data-id="${activeNoteId}"] .note-item-title`);
       if (cardTitle) cardTitle.textContent = activeNote.title;
-      
+
       triggerAutosave();
     }
   });
@@ -2135,7 +2135,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const insert = "\n" + match[0];
         noteTextarea.value = val.slice(0, start) + insert + val.slice(start);
         noteTextarea.selectionStart = noteTextarea.selectionEnd = start + insert.length;
-        
+
         // Trigger save
         const activeNote = notes.find(n => n.id === activeNoteId);
         if (activeNote) {
@@ -2246,7 +2246,7 @@ document.addEventListener("DOMContentLoaded", () => {
       item.classList.add("active");
       activeSection = item.getAttribute("data-section");
       renderNotesList();
-      
+
       // Select first note of this section automatically
       const visible = notes.filter(n => {
         if (activeSection === "trash") return n.trash;
@@ -2293,7 +2293,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Ctrl+K or '/' triggers palette (if not typing in text area)
     if (
-      ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") || 
+      ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") ||
       (e.key === "/" && document.activeElement !== noteTextarea && document.activeElement !== noteTitleInput && document.activeElement !== launcherSearchInput && document.activeElement !== paletteSearchInput)
     ) {
       e.preventDefault();
@@ -2339,7 +2339,7 @@ document.addEventListener("DOMContentLoaded", () => {
           selectNote(next.id);
         }
       }
-      
+
       // Jump 1-9 notes
       if (e.key >= "1" && e.key <= "9") {
         const visible = notes.filter(n => !n.trash && !n.archived);
